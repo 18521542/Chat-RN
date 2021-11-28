@@ -1,10 +1,11 @@
-import firebase from "firebase"
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 class Fire {
     constructor(){
         this.init();
-        // this.checkAuth();
-        console.log("hello")
+        this.checkAuth();
     }
 
     init = () => {
@@ -18,6 +19,14 @@ class Fire {
                 appId: "1:604673017941:web:993f63042cb4e33f45acdc"
             })
         }
+    }
+
+    checkAuth = () => {
+        firebase.auth().onAuthStateChanged(user => {
+            if(!user){
+                firebase.auth().signInAnonymously();
+            }
+        })
     }
 }
 
